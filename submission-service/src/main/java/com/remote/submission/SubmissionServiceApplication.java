@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RemoteApplication {
+public class SubmissionServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RemoteApplication.class, args);
+		SpringApplication.run(SubmissionServiceApplication.class, args);
 	}
 
 }
