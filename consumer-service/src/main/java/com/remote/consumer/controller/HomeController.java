@@ -1,6 +1,8 @@
 package com.remote.consumer.controller;
 
 import com.remote.consumer.service.DockerService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
+    private static final Logger logger = LogManager.getLogger(HomeController.class);
 
     @Autowired
     DockerService dockerService;
@@ -16,28 +19,32 @@ public class HomeController {
     @GetMapping("/")
     @ResponseBody
     public String getHomePage(){
-        System.out.println("consumer home page - hit");
-        return "hello from consumer service";
+        logger.info("hit - consumer home page");
+        return "hello! from consumer service";
     }
 
     @GetMapping("/launch")
     @ResponseBody
     public String getLaunchPage(){
-        System.out.println("launch page - hit");
+        logger.info("hit - launch page");
         dockerService.launchNginxContainer();
-        System.out.println("container launched - controller message");
+        logger.info("container launched - controller message");
         return "container launched";
     }
-
 
     @GetMapping("/list")
     @ResponseBody
     public String getList(){
-        System.out.println("list page - hit");
+        logger.info("hit - list page");
         dockerService.listRunningContainers();
-        System.out.println("list page - end");
+        logger.info("launched container - list page");
         return "list";
     }
 
-
+    @GetMapping("/error")
+    @ResponseBody
+    public String getError(){
+        logger.info("hit - error page");
+        return "error 404";
+    }
 }
