@@ -101,33 +101,27 @@ public class DockerService {
         }
     }
 
-    public void createPythonContainer(Long id, byte[] code){
+    public byte[] createPythonContainer(String id, byte[] code){
         Path codePath = Path.of("/tmp");
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
-            codePath = Files.createTempFile(Long.toString(id), ".py");
+            codePath = Files.createTempFile(id, ".py");
             Files.write(codePath, code);
-        } catch (Exception e) {
-            logger.error("Error creating python container", e);
-        }
-
-
-        try {
+            
             CreateContainerResponse container = dockerClient.createContainerCmd("python:3.9")
-            .withName("my-python-container")
+            .withName("python-"+id)
             .withHostConfig(new HostConfig()
-                .withMemory(256 * 1024 * 1024L)  // 256MB
-                .withCpuCount(1L)
-                .withBinds(new Bind(codePath.toString(), new Volume("/code")))
+                .withMemory(512 * 1024 * 1024L)  // 512MB
+                .withCpuCount(2L)
+                .withBinds(new Bind(codePath.toAbsolutePath().toString(), new Volume("/code/script.py")))
                 .withPortBindings(PortBinding.parse("8091:80")))
-            .withCmd("python", "/code/"+codePath.getFileName().toString())
+            .withCmd("python", "/code/script.py")
             .exec();
             
             logger.info("Python container created successfully with ID: {}", container.getId());
             
             dockerClient.startContainerCmd(container.getId()).exec();
             
-            
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             dockerClient.logContainerCmd(container.getId())
                 .withStdOut(true)
                 .withStdErr(true)
@@ -149,7 +143,7 @@ public class DockerService {
             logger.error("Error creating python container", e);
         }
 
-
+        return outputStream.toByteArray();
     }
 
     public void startContainer(String containerId){

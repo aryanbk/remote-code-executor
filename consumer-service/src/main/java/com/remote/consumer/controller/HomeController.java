@@ -1,6 +1,9 @@
 package com.remote.consumer.controller;
 
 import com.remote.consumer.service.DockerService;
+
+import java.util.UUID;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,16 @@ public class HomeController {
         dockerService.listRunningContainers();
         logger.info("launched container - list page");
         return "list";
+    }
+
+    @GetMapping("/python")
+    @ResponseBody
+    public String getPython(){
+        logger.info("hit - python page");
+        byte[] response = dockerService.createPythonContainer(UUID.randomUUID().toString(), "print('hello')".getBytes());
+        String responseString = new String(response);
+        logger.info("controller - response from python container: {}", responseString);
+        return responseString;
     }
 
     @GetMapping("/error")
