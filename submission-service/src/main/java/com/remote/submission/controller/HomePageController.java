@@ -14,14 +14,12 @@ public class HomePageController {
 
     @GetMapping
     @ResponseBody
-    public String getHome(){
+    public String getHome() {
         return "hi !";
     }
 
-
     @PostMapping
-    public void postHome(@RequestBody CodeSubmissionRequest codeSubmissionRequest){
+    public void postHome(@RequestBody CodeSubmissionRequest codeSubmissionRequest) {
         System.out.println(codeSubmissionRequest.getCode());
-        return;
     }
 }

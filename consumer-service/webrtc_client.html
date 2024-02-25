@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<h3
+			style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+		>
+			Output
+		</h3>
+		<p style="font-family: consolas; font-size: 12px" id="output"></p>
+	</body>
+	<script>
+		const socket = new WebSocket(
+			"ws://localhost:8081/docker-output?code123"
+		);
+		console.log(socket);
+		socket.onopen = () => console.log("Connected");
+		socket.onmessage = (event) => {
+			document.getElementById("output").innerHTML += event.data + "<br>";
+		};
+		socket.onerror = (error) => console.error("WebSocket Error:", error);
+	</script>
+</html>

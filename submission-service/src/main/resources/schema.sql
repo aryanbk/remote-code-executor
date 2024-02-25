@@ -11,3 +11,12 @@ CREATE TABLE IF NOT EXISTS file_submission (
     language VARCHAR(255) NOT NULL,
     user_id INT NOT NULL
 );
+
+
+CREATE TABLE IF NOT EXISTS code_submission (
+    id VARCHAR(255) PRIMARY KEY,
+    session_id VARCHAR(255) NOT NULL,
+    code_content BYTEA NOT NULL,
+    language VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL
+);
