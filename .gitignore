@@ -1,4 +1,7 @@
+# IDE configuration
 .idea
 .vscode
 .DS_Store
+
+# to ig
 consumer-service/src/main/java/com/remote/consumer/config/Constants.java
