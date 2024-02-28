@@ -110,7 +110,7 @@ public class DockerService {
                 .exec();
     }
 
-    private String getDockerImageForLanguage(String language) {
+    public String getDockerImageForLanguage(String language) {
         switch (language.toLowerCase()) {
             case "python" -> {
                 return "python:3.9";
@@ -125,7 +125,7 @@ public class DockerService {
         }
     }
 
-    private String[] getExecutionCommand(CodeSubmission codeSubmission) {
+    public String[] getExecutionCommand(CodeSubmission codeSubmission) {
         switch (codeSubmission.getLanguage().toLowerCase()) {
             case "python" -> {
                 return new String[] { "python", "-c", new String(codeSubmission.getCodeContent()) };
