@@ -20,7 +20,7 @@ public class HomeController {
     @Autowired
     DockerOutputWebSocketHandler webSocketHandler;
 
-    @GetMapping("/")
+    @GetMapping("/consumer")
     @ResponseBody
     public String getHomePage() {
         logger.info("hit - consumer home page");

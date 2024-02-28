@@ -11,7 +11,7 @@ import com.remote.submission.model.CodeSubmission;
 import com.remote.submission.service.CodeService;
 
 @RestController
-@RequestMapping("/code")
+@RequestMapping("/submission/code")
 public class CodeController {
     @Autowired
     CodeService codeService;

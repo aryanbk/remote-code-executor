@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.*;
 import com.remote.submission.model.FileSubmission;
 
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/submission/file")
 public class FileController {
 
     @Autowired
     FileService fileService;
 
     @GetMapping("/{codeId}")
-    public byte[] getFile(@RequestParam int codeId){
+    public byte[] getFile(@RequestParam int codeId) {
         return new byte[0];
     }
 
     @PostMapping
-    public String saveFile(@RequestBody FileSubmission fileSubmission){
+    public String saveFile(@RequestBody FileSubmission fileSubmission) {
         return fileService.handleFileSubmission(fileSubmission);
     }
 }

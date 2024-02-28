@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HelloController {
 
-    @RequestMapping("hello")
+    @RequestMapping("/submission/hello")
     @ResponseBody
-    public String hello(){
+    public String hello() {
         return "Hello !";
     }
 }
